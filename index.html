@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
         :root {
-            --bg-deep: #050505;
+            --bg-deep: #000000;
             --accent-main: #00ff9d;
             --accent-gov: #ff2a2a;
         }
@@ -20,101 +20,93 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-deep);
-            background-image: radial-gradient(circle at 50% 0%, rgba(0, 255, 157, 0.05) 0%, transparent 60%);
             color: #fff;
             overflow-x: hidden;
-            transition: background-image 0.5s ease;
         }
 
         .font-display { font-family: 'Orbitron', sans-serif; letter-spacing: 0.02em; }
         .font-mono-num { font-family: 'JetBrains Mono', monospace; }
         .text-glow { text-shadow: 0 0 10px rgba(0, 255, 157, 0.5); }
         .text-glow-red { text-shadow: 0 0 15px rgba(255, 42, 42, 0.6); }
-        
-        .glass-panel {
-            background: rgba(20, 20, 25, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-        .glass-panel:hover {
-            border-color: var(--accent-main);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
-        }
 
-        .tab-content { display: none; opacity: 0; transition: opacity 0.3s ease; }
-        .tab-content.active { display: block; opacity: 1; animation: slideUp 0.5s ease forwards; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .nav-link { position: relative; color: #6b7280; transition: 0.3s; text-transform: uppercase; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
-        .nav-link.active { color: var(--accent-main); }
-        .nav-link.active::after {
-            content: ''; position: absolute; bottom: -26px; left: 0; width: 100%; height: 3px;
-            background: var(--accent-main); box-shadow: 0 0 15px var(--accent-main);
-        }
-
-        .active-lang { background: rgba(0, 255, 157, 0.15) !important; color: #00ff9d !important; border: 1px solid #00ff9d !important; }
-        body.theme-gov .active-lang { background: rgba(255, 42, 42, 0.15) !important; color: #ff2a2a !important; border-color: #ff2a2a !important; }
-
-        .nav-badge {
+        /* 배지 스타일 */
+        .header-badge {
+            background: #000; border: 1px solid #333; padding: 5px 12px; border-radius: 6px;
+            font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; color: #888;
             display: flex; align-items: center; gap: 6px;
-            padding: 4px 10px; border-radius: 6px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            font-size: 10px; font-weight: 700; font-family: 'Orbitron', sans-serif; color: #ccc;
         }
-        .nav-badge span { color: var(--accent-main); }
-        
+        .header-badge span.green { color: #00ff9d; }
+        .header-badge span.purple { color: #bd00ff; }
+
         .platform-pill {
             display: inline-flex; align-items: center; gap: 8px;
             padding: 8px 16px; border-radius: 8px;
-            background: rgba(10, 10, 15, 0.8); border: 1px solid;
-            font-size: 11px; font-weight: 700; color: #fff;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            white-space: nowrap;
+            background: rgba(15, 15, 20, 0.9); border: 1px solid;
+            font-size: 12px; font-weight: 700; color: #fff;
+            transition: transform 0.2s; white-space: nowrap;
         }
-        .platform-pill:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); }
-        
-        .extreme-glow { box-shadow: 0 0 20px rgba(189, 0, 255, 0.2); border-color: rgba(189, 0, 255, 0.5); }
-        
-        .logo-box {
-            width: 36px; height: 36px;
-            background: linear-gradient(135deg, #00ff9d, #00c853);
-            border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            color: black; font-family: 'Orbitron', sans-serif; font-weight: 900;
+        .platform-pill:hover { transform: translateY(-2px); }
+
+        /* 패널 및 카드 */
+        .glass-panel {
+            background: rgba(20, 20, 25, 0.6); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08); transition: 0.3s;
+        }
+        .glass-panel:hover { border-color: var(--accent-main); transform: translateY(-4px); }
+
+        .gov-card {
+            background: rgba(10, 10, 12, 0.8); border: 1px solid rgba(255, 42, 42, 0.2);
+            border-radius: 16px; padding: 2.5rem; transition: 0.3s;
+        }
+        .gov-card:hover { border-color: rgba(255, 42, 42, 0.6); box-shadow: 0 0 20px rgba(255, 42, 42, 0.1); }
+
+        /* 탭 및 버튼 */
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-link { color: #666; transition: 0.3s; font-weight: 700; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; }
+        .nav-link.active { color: #fff; }
+        .nav-link.active::after {
+            content: ''; display: block; width: 100%; height: 3px; background: var(--accent-main);
+            margin-top: 24px; box-shadow: 0 0 10px var(--accent-main);
+        }
+        .nav-link.gov-active { color: #fff !important; }
+        .nav-link.gov-active::after { background: #ff2a2a; box-shadow: 0 0 10px #ff2a2a; }
+
+        .active-lang { background: #222 !important; color: #fff !important; border-color: #555 !important; }
+        .contact-btn {
+            background: #00ff9d; color: black; font-weight: 800; font-size: 12px;
+            padding: 8px 20px; border-radius: 4px; box-shadow: 0 0 15px rgba(0,255,157,0.3);
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="fixed top-0 w-full bg-black/90 border-b border-white/10 backdrop-blur-md z-[100]">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+    <nav class="fixed top-0 w-full bg-black border-b border-white/10 z-[100]">
+        <div class="max-w-[1400px] mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="logo-box">S</div>
-                <div class="font-display font-bold text-lg tracking-wider text-white">
-                    SENTINEL <span style="color: var(--accent-main);">Analytics</span>
+                <div class="w-9 h-9 rounded bg-[#00ff9d] flex items-center justify-center text-black font-black font-display text-xl">S</div>
+                <div class="font-display font-bold text-lg tracking-wider">
+                    SENTINEL <span class="text-[#00ff9d]">Analytics</span>
                 </div>
             </div>
 
-            <div class="hidden md:flex gap-10">
-                <button onclick="switchTab('main')" id="nav-main" class="nav-link active">Business Platform</button>
-                <button onclick="switchTab('gov')" id="nav-gov" class="nav-link hover:text-red-500">Sentinel GOV</button>
+            <div class="hidden md:flex gap-12">
+                <button onclick="switchTab('main')" id="nav-main" class="nav-link active">BUSINESS PLATFORM</button>
+                <button onclick="switchTab('gov')" id="nav-gov" class="nav-link hover:text-red-500">SENTINEL GOV</button>
             </div>
 
             <div class="flex items-center gap-4">
-                <div class="hidden lg:flex gap-2">
-                    <div class="nav-badge">PLATFORMS <span>62+</span></div>
-                    <div class="nav-badge">SENTINEL AI <span>✔</span></div>
+                <div class="hidden lg:flex gap-3">
+                    <div class="header-badge">PLATFORMS <span class="green">62+</span></div>
+                    <div class="header-badge">SENTINEL AI <span class="purple">✔</span></div>
                 </div>
-                <div class="flex bg-white/5 rounded border border-white/10 p-1">
-                    <button onclick="setLang('ko')" id="btn-ko" class="px-2 py-1 text-[10px] font-bold rounded text-gray-400 active-lang transition">KO</button>
-                    <button onclick="setLang('en')" id="btn-en" class="px-2 py-1 text-[10px] font-bold rounded text-gray-400 transition hover:text-white">EN</button>
+                <div class="flex bg-black border border-white/10 rounded p-1">
+                    <button onclick="setLang('ko')" id="btn-ko" class="px-2 py-1 text-[10px] font-bold rounded text-gray-500 active-lang">KO</button>
+                    <button onclick="setLang('en')" id="btn-en" class="px-2 py-1 text-[10px] font-bold rounded text-gray-500">EN</button>
                 </div>
-                <button onclick="window.open('https://t.me/sentinel_support')" class="bg-[#00ff9d] text-black px-5 py-2 rounded-lg text-xs font-bold uppercase hover:bg-[#00c853] transition shadow-lg font-display tracking-wide contact-btn">
-                    Contact
-                </button>
+                <button onclick="window.open('https://t.me/sentinel_support')" class="contact-btn">CONTACT</button>
             </div>
         </div>
     </nav>
@@ -122,26 +114,19 @@
     <main id="tab-main" class="tab-content active pt-32">
         <header class="px-6 pb-24 text-center">
             <div class="max-w-7xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/30 bg-green-900/10 text-green-400 text-[10px] font-bold tracking-[0.2em] uppercase mb-8">
-                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                    Powered by Sentinel AI Intelligence
-                </div>
-                <h1 class="font-display text-5xl md:text-7xl font-black mb-6 leading-tight text-white">
-                    BEYOND COLLECTION.<br>
-                    <span class="text-[#00ff9d] text-glow">UNDERSTAND HUMANS.</span>
+                <h1 class="font-display text-4xl md:text-6xl font-black mb-6 leading-tight">
+                    SENTINEL AI-powered Next-Gen Intelligence Platform
                 </h1>
-                <div class="flex flex-wrap justify-center gap-4 mb-8 text-sm md:text-base font-medium text-gray-300 font-display">
-                    <span class="flex items-center gap-2"><i class="fas fa-layer-group text-green-400"></i> <span data-i18n="hero_feat_1">62개 플랫폼</span></span>
-                    <span class="text-gray-700">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-brain text-blue-400"></i> <span data-i18n="hero_feat_2">심리 분석</span></span>
-                    <span class="text-gray-700">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-clock text-purple-400"></i> <span data-i18n="hero_feat_3">행동 예측</span></span>
-                    <span class="text-gray-700">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-arrow-down text-pink-400"></i> <span data-i18n="hero_feat_4">83% 비용 절감</span></span>
+                
+                <div class="flex flex-wrap justify-center gap-4 mb-8 text-lg font-bold font-display">
+                    <span class="text-[#00ff9d]" data-i18n="hero_feat_1">62 Platforms</span>
+                    <span class="text-gray-600">·</span>
+                    <span class="text-[#3b82f6]" data-i18n="hero_feat_2">Psychology</span>
+                    <span class="text-gray-600">·</span>
+                    <span class="text-[#a855f7]" data-i18n="hero_feat_3">Prediction</span>
+                    <span class="text-gray-600">·</span>
+                    <span class="text-[#ec4899]" data-i18n="hero_feat_4">83% Cost Cut</span>
                 </div>
-                <p class="text-gray-400 text-lg md:text-xl max-w-4xl mx-auto mb-12 font-light leading-relaxed" data-i18n="hero_sub">
-                    SENTINEL AI 기반 차세대 인텔리전스 플랫폼. 62개 플랫폼 실시간 분석, 심리 상태 정량화, 행동 패턴 학습.
-                </p>
 
                 <div class="flex flex-wrap justify-center gap-3 mb-16 max-w-6xl mx-auto">
                     <span class="platform-pill" style="border-color: #229ED9; color: #229ED9;"><i class="fab fa-telegram-plane"></i> Telegram</span>
@@ -160,22 +145,19 @@
                     <span class="platform-pill" style="border-color: #03C75A; color: #03C75A;"><i class="fas fa-search"></i> Naver</span>
                     <span class="platform-pill" style="border-color: #F4C402; color: #F4C402;"><i class="fas fa-comment-dots"></i> Daum</span>
                     <span class="platform-pill" style="border-color: #ce3030; color: #ce3030;"><i class="fas fa-users"></i> DCInside</span>
-                    <span class="platform-pill" style="border-color: #9146FF; color: #9146FF;"><i class="fab fa-twitch"></i> Twitch</span>
-                    <span class="platform-pill" style="border-color: #F7931A; color: #F7931A;"><i class="fab fa-bitcoin"></i> BitcoinTalk</span>
-                    <span class="platform-pill" style="border-color: #df2029; color: #df2029;"><i class="fab fa-weibo"></i> Weibo</span>
-                    <span class="platform-pill" style="border-color: #00ff9d; color: #00ff9d;">+ 42 MORE</span>
+                    <span class="platform-pill" style="border-color: #00ff9d; color: #00ff9d;">+ 42 MORE PLATFORMS</span>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                    <div class="bg-[#050f0a] border border-[#00ff9d]/20 rounded-2xl p-8 text-center shadow-[inset_0_0_20px_rgba(0,255,157,0.05)]">
+                    <div class="bg-[#050a07] border border-[#00ff9d]/20 rounded-xl p-6 text-center">
                         <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2" data-i18n="stat_total">TOTAL COLLECTED</p>
                         <h2 class="font-mono-num text-4xl font-bold text-[#00ff9d] text-glow" id="counter">1,316,008</h2>
                     </div>
-                    <div class="bg-[#050f0a] border border-[#00ff9d]/20 rounded-2xl p-8 text-center shadow-[inset_0_0_20px_rgba(0,255,157,0.05)]">
+                    <div class="bg-[#050a07] border border-[#00ff9d]/20 rounded-xl p-6 text-center">
                         <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2" data-i18n="stat_active">ACTIVE CHANNELS</p>
                         <h2 class="font-mono-num text-4xl font-bold text-[#bd00ff]">16,527</h2>
                     </div>
-                    <div class="bg-[#050f0a] border border-[#00ff9d]/20 rounded-2xl p-8 text-center shadow-[inset_0_0_20px_rgba(0,255,157,0.05)]">
+                    <div class="bg-[#050a07] border border-[#00ff9d]/20 rounded-xl p-6 text-center">
                         <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2" data-i18n="stat_daily">DAILY DATA</p>
                         <h2 class="font-mono-num text-4xl font-bold text-[#00f0ff]">284K</h2>
                     </div>
@@ -183,34 +165,35 @@
             </div>
         </header>
 
-        <div class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-10"></div>
+        <div class="w-full h-px bg-white/10 my-10"></div>
 
         <section class="py-20 px-6">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-20">
+                <div class="text-center mb-16">
                     <h2 class="font-display text-3xl font-bold mb-4" data-i18n="process_title">키워드 하나만 입력하면, Sentinel AI가 모든 걸 찾아냅니다</h2>
                     <p class="text-gray-400" data-i18n="process_desc">더 이상 수동으로 채널을 찾고, 메시지를 복사하고, 엑셀에 정리할 필요 없습니다.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
-                    <div class="glass-panel p-8 rounded-2xl text-center">
-                        <div class="w-12 h-12 bg-green-500 text-black flex items-center justify-center font-bold rounded-xl mx-auto mb-4 text-xl">1</div>
+                    <div class="bg-[#050a07] border border-[#00ff9d]/20 p-8 rounded-2xl text-center">
+                        <div class="text-3xl font-bold text-[#00ff9d] mb-4">1</div>
                         <h3 class="font-bold mb-2 text-white" data-i18n="step1_t">키워드 입력</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed" data-i18n="step1_d">"나이키", "비트코인" 등 관심 키워드 1개만 입력하세요.</p>
+                        <p class="text-xs text-gray-400" data-i18n="step1_d">"나이키", "비트코인" 등 관심 키워드 1개만 입력하세요.</p>
                     </div>
-                    <div class="glass-panel p-8 rounded-2xl text-center">
-                        <div class="w-12 h-12 bg-blue-500 text-black flex items-center justify-center font-bold rounded-xl mx-auto mb-4 text-xl">2</div>
+                    <div class="bg-[#050a07] border border-[#00ff9d]/20 p-8 rounded-2xl text-center">
+                        <div class="text-3xl font-bold text-[#00f0ff] mb-4">2</div>
                         <h3 class="font-bold mb-2 text-white" data-i18n="step2_t">AI 자동 분석</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed" data-i18n="step2_d">500+ 연관 키워드 생성 및 관련 채널을 자동으로 발견합니다.</p>
+                        <p class="text-xs text-gray-400" data-i18n="step2_d">500+ 연관 키워드 생성 및 관련 채널을 자동으로 발견합니다.</p>
                     </div>
-                    <div class="glass-panel p-8 rounded-2xl text-center">
-                        <div class="w-12 h-12 bg-purple-500 text-black flex items-center justify-center font-bold rounded-xl mx-auto mb-4 text-xl">3</div>
+                    <div class="bg-[#050a07] border border-[#00ff9d]/20 p-8 rounded-2xl text-center">
+                        <div class="text-3xl font-bold text-[#bd00ff] mb-4">3</div>
                         <h3 class="font-bold mb-2 text-white" data-i18n="step3_t">실시간 수집</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed" data-i18n="step3_d">62개 이상의 플랫폼에서 24시간 수집하고 CSV/JSON으로 즉시 내보냅니다.</p>
+                        <p class="text-xs text-gray-400" data-i18n="step3_d">62개 이상의 플랫폼에서 24시간 수집하고 CSV/JSON으로 즉시 내보냅니다.</p>
                     </div>
                 </div>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="glass-panel p-8 rounded-2xl border-l-4 border-red-500 bg-red-500/5">
-                        <h3 class="text-xl font-bold text-red-500 mb-6 flex items-center gap-2"><i class="fas fa-ban"></i> <span data-i18n="old_title">이제 안 해도 됩니다</span></h3>
+                        <h3 class="text-xl font-bold text-red-500 mb-6" data-i18n="old_title">🚫 이제 안 해도 됩니다</h3>
                         <ul class="space-y-3 text-sm text-gray-400">
                             <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="old_1">수동 채널 검색</span></li>
                             <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="old_2">메시지 복사 붙여넣기</span></li>
@@ -219,7 +202,7 @@
                         </ul>
                     </div>
                     <div class="glass-panel p-8 rounded-2xl border-l-4 border-green-500 bg-green-500/5">
-                        <h3 class="text-xl font-bold text-green-400 mb-6 flex items-center gap-2"><i class="fas fa-check-circle"></i> <span data-i18n="new_title">AI가 해드립니다</span></h3>
+                        <h3 class="text-xl font-bold text-green-400 mb-6" data-i18n="new_title">✅ AI가 해드립니다</h3>
                         <ul class="space-y-3 text-sm text-white">
                             <li class="flex gap-3"><span class="text-green-400">✓</span> <span data-i18n="new_1">62개 플랫폼 자동 발견</span></li>
                             <li class="flex gap-3"><span class="text-green-400">✓</span> <span data-i18n="new_2">24시간 자동 수집</span></li>
@@ -251,18 +234,18 @@
             </div>
         </section>
 
-        <section class="py-20 px-6 bg-white/[0.02] border-y border-white/5">
+        <section class="py-20 px-6 border-y border-white/5 bg-[#050a07]">
             <div class="max-w-6xl mx-auto text-center">
                 <h2 class="font-display text-3xl font-bold mb-4 text-white" data-i18n="dash_title">관리자 대시보드</h2>
                 <p class="text-gray-400 mb-12" data-i18n="dash_sub">21개 관리 페이지 완벽 지원</p>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 text-xs font-bold text-gray-400">
-                    <div class="glass-panel p-4 rounded-xl"><i class="fas fa-tachometer-alt text-green-400 mb-2 block text-2xl"></i>Dashboard</div>
-                    <div class="glass-panel p-4 rounded-xl"><i class="fas fa-key text-blue-400 mb-2 block text-2xl"></i>Keywords</div>
-                    <div class="glass-panel p-4 rounded-xl"><i class="fas fa-hashtag text-purple-400 mb-2 block text-2xl"></i>Channels</div>
-                    <div class="glass-panel p-4 rounded-xl"><i class="fas fa-users text-orange-400 mb-2 block text-2xl"></i>Targets</div>
-                    <div class="glass-panel p-4 rounded-xl"><i class="fas fa-globe text-cyan-400 mb-2 block text-2xl"></i>Platforms</div>
-                    <div class="glass-panel p-4 rounded-xl"><i class="fas fa-chart-line text-pink-400 mb-2 block text-2xl"></i>Analytics</div>
-                    <div class="glass-panel p-4 rounded-xl"><i class="fas fa-sliders-h text-yellow-400 mb-2 block text-2xl"></i>Settings</div>
+                    <div class="bg-black border border-white/10 p-4 rounded-xl"><i class="fas fa-tachometer-alt text-green-400 mb-2 block text-2xl"></i>Dashboard</div>
+                    <div class="bg-black border border-white/10 p-4 rounded-xl"><i class="fas fa-key text-blue-400 mb-2 block text-2xl"></i>Keywords</div>
+                    <div class="bg-black border border-white/10 p-4 rounded-xl"><i class="fas fa-hashtag text-purple-400 mb-2 block text-2xl"></i>Channels</div>
+                    <div class="bg-black border border-white/10 p-4 rounded-xl"><i class="fas fa-users text-orange-400 mb-2 block text-2xl"></i>Targets</div>
+                    <div class="bg-black border border-white/10 p-4 rounded-xl"><i class="fas fa-globe text-cyan-400 mb-2 block text-2xl"></i>Platforms</div>
+                    <div class="bg-black border border-white/10 p-4 rounded-xl"><i class="fas fa-chart-line text-pink-400 mb-2 block text-2xl"></i>Analytics</div>
+                    <div class="bg-black border border-white/10 p-4 rounded-xl"><i class="fas fa-sliders-h text-yellow-400 mb-2 block text-2xl"></i>Settings</div>
                 </div>
             </div>
         </section>
@@ -278,26 +261,26 @@
                         <h3 class="font-display text-lg text-gray-400 mb-2">BASIC</h3>
                         <div class="text-3xl font-bold mb-6 text-white font-mono-num">$199 <span class="text-xs font-sans font-normal text-gray-600">/mo</span></div>
                         <ul class="text-xs text-gray-400 space-y-3 mb-8 flex-1" id="plan-basic-list"></ul>
-                        <button class="w-full py-3 border border-white/10 rounded-xl font-bold text-xs hover:bg-white hover:text-black transition uppercase tracking-wider" data-i18n="plan_btn_start">Start Now</button>
+                        <button class="w-full py-3 border border-white/10 rounded-xl font-bold text-xs hover:bg-white hover:text-black transition uppercase" data-i18n="plan_btn_start">Start Now</button>
                     </div>
                     <div class="glass-panel p-8 rounded-3xl flex flex-col border-blue-500/30 hover:border-blue-500 transition">
                         <h3 class="font-display text-lg text-blue-400 mb-2">PRO</h3>
                         <div class="text-3xl font-bold mb-6 text-white font-mono-num">$599 <span class="text-xs font-sans font-normal text-gray-600">/mo</span></div>
                         <ul class="text-xs text-gray-300 space-y-3 mb-8 flex-1" id="plan-pro-list"></ul>
-                        <button class="w-full py-3 bg-blue-500/10 text-blue-400 border border-blue-500/50 rounded-xl font-bold text-xs hover:bg-blue-500 hover:text-black transition uppercase tracking-wider" data-i18n="plan_btn_up">Upgrade</button>
+                        <button class="w-full py-3 bg-blue-500/10 text-blue-400 border border-blue-500/50 rounded-xl font-bold text-xs hover:bg-blue-500 hover:text-black transition uppercase" data-i18n="plan_btn_up">Upgrade</button>
                     </div>
                     <div class="glass-panel p-8 rounded-3xl flex flex-col border-green-500/50 bg-green-500/[0.02] relative shadow-xl shadow-green-500/10">
                         <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-500 text-black text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
                         <h3 class="font-display text-lg text-green-400 mb-2">ENTERPRISE</h3>
                         <div class="text-3xl font-bold mb-6 text-white font-mono-num">$1599 <span class="text-xs font-sans font-normal text-gray-600">/mo</span></div>
                         <ul class="text-xs text-gray-300 space-y-3 mb-8 flex-1" id="plan-ent-list"></ul>
-                        <button class="w-full py-3 bg-green-500 text-black rounded-xl font-bold text-xs hover:shadow-[0_0_20px_rgba(0,255,157,0.4)] transition uppercase tracking-wider" data-i18n="plan_btn_full">Full Access</button>
+                        <button class="w-full py-3 bg-green-500 text-black rounded-xl font-bold text-xs hover:shadow-lg transition uppercase" data-i18n="plan_btn_full">Full Access</button>
                     </div>
                     <div class="glass-panel p-8 rounded-3xl flex flex-col border-purple-500 extreme-glow bg-purple-500/[0.05]">
                         <h3 class="font-display text-lg text-purple-400 mb-2">EXTREME</h3>
                         <div class="text-3xl font-bold mb-6 text-white font-mono-num">$XXX <span class="text-xs font-sans font-normal text-gray-600">/custom</span></div>
                         <ul class="text-xs text-gray-300 space-y-3 mb-8 flex-1" id="plan-ext-list"></ul>
-                        <button class="w-full py-3 bg-purple-600 text-white rounded-xl font-bold text-xs hover:bg-purple-500 transition uppercase tracking-wider" data-i18n="plan_btn_contact">Contact Sales</button>
+                        <button class="w-full py-3 bg-purple-600 text-white rounded-xl font-bold text-xs hover:bg-purple-500 transition uppercase" data-i18n="plan_btn_contact">Contact Sales</button>
                     </div>
                 </div>
             </div>
@@ -321,30 +304,26 @@
 
     <main id="tab-gov" class="tab-content pt-32">
         <section class="px-6 text-center mb-24 max-w-6xl mx-auto">
-            <div class="inline-block mb-8 px-4 py-1.5 bg-red-500/10 border border-red-500/40 rounded text-red-500 text-[10px] font-bold tracking-[0.3em] uppercase">
-                Restricted Access: Government Only
+            <div class="inline-block mb-8 px-4 py-1.5 bg-red-600/10 border border-red-500/40 rounded text-red-500 text-[10px] font-bold tracking-[0.3em] uppercase">
+                RESTRICTED ACCESS: GOVERNMENT ONLY
             </div>
             <h1 class="font-display text-6xl md:text-8xl font-black mb-8 leading-none text-white">
                 SENTINEL <span class="text-[#ff2a2a] text-glow-red">GOV</span>
             </h1>
-            <p class="text-gray-400 text-xl max-w-3xl mx-auto mb-8 leading-relaxed" data-i18n="gov_hero_sub">
-                국가 지능형 통합 관제 플랫폼. 범죄 예방과 재난 골든타임 확보를 위한 공공 안보 시스템.
-            </p>
-            <p class="text-xl font-semibold text-white mb-20 font-display" data-i18n="gov_slogan">
-                "Empowering Modern Governance through Predictive Intelligence"
-            </p>
+            <p class="text-gray-400 text-xl max-w-3xl mx-auto mb-8 leading-relaxed" data-i18n="gov_hero_sub"></p>
+            <p class="text-xl font-bold text-white mb-20 font-display tracking-wide" data-i18n="gov_slogan"></p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left mb-20" id="gov-modules-grid"></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass-panel p-8 rounded-2xl border-red-500/10">
-                    <h4 class="font-display text-xl text-red-400 mb-4" data-i18n="gov_sec5_title">05. The Paradigm Shift</h4>
-                    <p class="text-sm text-gray-400 leading-relaxed mb-4" data-i18n="gov_sec5_desc">사후 복구에서 사전 예방으로 전환합니다. Sentinel GOV는 '선제적 거버넌스' 원칙에 따라 작동하며 위험이 발생하기 전 초기 단계에서 식별하여 국가적 손실을 최소화합니다.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <div class="gov-card">
+                    <h4 class="font-display text-xl text-red-400 mb-4" data-i18n="gov_sec5_title"></h4>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-4" data-i18n="gov_sec5_desc"></p>
                     <ul class="text-xs text-gray-500 space-y-2" id="gov-sec5-list"></ul>
                 </div>
-                <div class="glass-panel p-8 rounded-2xl border-red-500/10">
-                    <h4 class="font-display text-xl text-red-400 mb-4" data-i18n="gov_sec6_title">06. 24/7 Autonomous Sentinel AI</h4>
-                    <p class="text-sm text-gray-400 leading-relaxed mb-4" data-i18n="gov_sec6_desc">인간의 피로 없이 지속적인 경계를 유지합니다. 암호화된 메신저, 소셜 미디어, 딥 웹 전반의 수백만 데이터 포인트를 연중무휴 24시간 스캔하여 '절대적 진실'만을 필터링합니다.</p>
+                <div class="gov-card">
+                    <h4 class="font-display text-xl text-red-400 mb-4" data-i18n="gov_sec6_title"></h4>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-4" data-i18n="gov_sec6_desc"></p>
                     <ul class="text-xs text-gray-500 space-y-2" id="gov-sec6-list"></ul>
                 </div>
             </div>
@@ -353,51 +332,47 @@
         <section class="py-24 px-6 bg-red-900/[0.05] border-t border-red-500/10">
             <div class="max-w-3xl mx-auto text-center p-12 border border-red-500/30 rounded-3xl bg-gradient-to-b from-red-900/10 to-black">
                 <h3 class="font-display text-2xl font-bold mb-4 text-white uppercase">Authorization Required</h3>
-                <p class="text-gray-500 text-sm mb-8" data-i18n="gov_auth_text">
-                    본 시스템은 승인된 정부 기관 및 사법 기관만 접근 가능합니다.<br>
-                    공식 요청 접수 및 승인 절차를 거친 후 폐쇄형 라이선스가 발급됩니다.
-                </p>
-                <div class="flex justify-center gap-4">
-                    <button class="px-8 py-3 bg-red-600 text-white font-bold rounded hover:bg-red-500 transition text-xs uppercase tracking-widest shadow-lg shadow-red-600/20" data-i18n="gov_btn_req">Request Access</button>
-                    <button class="px-8 py-3 border border-red-500/30 text-red-500 font-bold rounded hover:bg-red-500/10 transition text-xs uppercase tracking-widest" data-i18n="gov_btn_doc">Download Docs</button>
+                <p class="text-gray-500 text-sm mb-8" data-i18n="gov_auth_text"></p>
+                <div class="flex justify-center gap-6">
+                    <button class="px-8 py-4 bg-red-600 text-white font-bold rounded hover:bg-red-500 transition text-xs uppercase tracking-widest shadow-lg shadow-red-600/20" data-i18n="gov_btn_req">Request Access</button>
+                    <button class="px-8 py-4 border border-red-500/30 text-red-500 font-bold rounded hover:bg-red-500/10 transition text-xs uppercase tracking-widest" data-i18n="gov_btn_doc">Download Docs</button>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="py-16 border-t border-white/5 text-center bg-black">
-        <p class="font-display text-[10px] text-gray-400 tracking-[0.5em] uppercase">
-            SENTINEL Analytics © 2026 - <span class="text-gray-200 font-bold">Powered by Sentinel AI</span>
+        <p class="font-display text-[10px] text-gray-500 tracking-[0.5em] uppercase">
+            SENTINEL Analytics © 2026 - <span class="text-white font-bold">Powered by Sentinel AI</span>
         </p>
     </footer>
 
     <script>
         const db = {
             ko: {
-                contact: "문의하기",
-                hero_sub: "SENTINEL AI 기반 차세대 인텔리전스 플랫폼. 62개 플랫폼 실시간 분석, 심리 상태 정량화, 행동 패턴 학습.",
                 hero_feat_1: "62개 플랫폼", hero_feat_2: "심리 분석", hero_feat_3: "행동 예측", hero_feat_4: "83% 비용 절감",
                 stat_total: "총 수집 데이터", stat_active: "활성 채널", stat_daily: "일일 데이터",
-                process_title: "키워드 하나만 입력하면, Sentinel AI가 모든 걸 찾아냅니다", process_desc: "더 이상 수동으로 채널을 찾고, 메시지를 복사하고, 엑셀에 정리할 필요 없습니다.",
+                hero_sub: "SENTINEL AI 기반 차세대 인텔리전스 플랫폼. 62개 플랫폼 실시간 분석, 심리 상태 정량화, 행동 패턴 학습.",
+                process_title: "키워드 하나만 입력하면, Sentinel AI가 모든 걸 찾아냅니다", 
+                process_desc: "더 이상 수동으로 채널을 찾고, 메시지를 복사하고, 엑셀에 정리할 필요 없습니다.",
                 step1_t: "키워드 입력", step1_d: "\"나이키\", \"비트코인\" 등 관심 키워드 1개만 입력하세요.",
                 step2_t: "AI 자동 분석", step2_d: "500+ 연관 키워드 생성 및 관련 채널을 자동으로 발견합니다.",
                 step3_t: "실시간 수집", step3_d: "62개 이상의 플랫폼에서 24시간 수집하고 CSV/JSON으로 즉시 내보냅니다.",
-                old_title: "이제 안 해도 됩니다", old_1: "수동 채널 검색", old_2: "메시지 복사 붙여넣기", old_3: "VPN 우회 및 IP 차단", old_4: "24시간 모니터링 인력",
-                new_title: "AI가 해드립니다", new_1: "62개 플랫폼 자동 발견", new_2: "24시간 자동 수집", new_3: "사용자 자동 분류", new_4: "CSV/JSON 자동 내보내기",
+                old_title: "🚫 이제 안 해도 됩니다", old_1: "수동 채널 검색", old_2: "메시지 복사 붙여넣기", old_3: "VPN 우회 및 IP 차단", old_4: "24시간 모니터링 인력",
+                new_title: "✅ AI가 해드립니다", new_1: "62개 플랫폼 자동 발견", new_2: "24시간 자동 수집", new_3: "사용자 자동 분류", new_4: "CSV/JSON 자동 내보내기",
                 tech_title: "Sentinel AI 독자 엔진", tech_sub: "독자 개발 AI 엔진. 자동 키워드 확장, 맥락 분석, 행동 패턴 학습",
-                cases_title: "10대 핵심 업종 활용사례", cases_sub: "타겟 발견부터 빅데이터 수집까지 완전 자동화", cases_footer: "이 10개 업종의 공통점은 '돈을 쓰기 직전의 사람들이 대화를 나눈다'는 것입니다.",
+                cases_title: "10대 핵심 업종 활용사례", cases_sub: "타겟 발견부터 빅데이터 수집까지 완전 자동화", 
                 dash_title: "관리자 대시보드", dash_sub: "21개 관리 페이지 완벽 지원",
-                price_title: "라이센스 플랜", price_sub: "비즈니스 규모에 맞는 최적의 플랜을 선택하세요",
+                price_title: "LICENSE PLANS", price_sub: "비즈니스 규모에 맞는 최적의 플랜을 선택하세요",
                 plan_btn_start: "시작하기", plan_btn_up: "업그레이드", plan_btn_full: "전체 권한", plan_btn_contact: "영업팀 문의",
                 trial_title: "7일 무료 체험 시작하기", trial_desc: "BASIC 플랜의 모든 기능을 7일 동안 무료로 경험해보세요. 카드 등록 없이 즉시 시작할 수 있습니다.", trial_btn: "무료 체험 신청하기",
                 
-                // GOV Section KO
+                // GOV KO
                 gov_hero_sub: "국가 지능형 통합 관제 플랫폼. 범죄 예방과 재난 골든타임 확보를 위한 공공 안보 시스템.",
                 gov_slogan: "\"예측 인텔리전스를 통한 현대 거버넌스 강화\"",
                 gov_auth_text: "본 시스템은 승인된 정부 기관 및 사법 기관만 접근 가능합니다.<br>공식 요청 접수 및 승인 절차를 거친 후 폐쇄형 라이선스가 발급됩니다.",
                 gov_btn_req: "승인 요청", gov_btn_doc: "문서 다운로드",
                 
-                // Fixed: GOV Sec 5 & 6 (Pure Korean)
                 gov_sec5_title: "05. 패러다임의 전환: 복구에서 예방으로",
                 gov_sec5_desc: "사후 복구에서 사전 예방으로 전환합니다. Sentinel GOV는 '선제적 거버넌스' 원칙에 따라 작동하며 위험이 발생하기 전 초기 단계에서 식별하여 국가적 손실을 최소화합니다.",
                 gov_sec5_list: ["선제적 범죄 억제 (Pre-emptive Crime Suppression)", "예측적 재난 방어 (Predictive Disaster Defense)", "사회 갈등 안정화 (Social Harmony Stabilization)"],
@@ -433,18 +408,17 @@
                     ext: ["무제한 플랫폼 & 데이터", "화이트라벨(White Label)", "자동 메시지 발송 기능", "전용 노드 서버 구축", "ENTERPRISE보다 빠른 속도"]
                 },
                 gov_modules: [
-                    {t:"01. Pre-Crime Intelligence", d:"딥러닝 네트워크 분석 및 OSINT를 통해 조직 범죄, 마약 밀매, 인신매매를 계획 단계에서 탐지합니다. 단순 조직원이 아닌 핵심 주동자(Kingpin)를 식별합니다.", s:"타겟: 텔레그램, 다크웹", i:"fas fa-shield-alt"},
-                    {t:"02. Early Disaster Response", d:"뉴스보다 빠른 실시간 재난 탐지 및 고해상도 GIS 통합. 바랑가이(Barangay) 단위 위험 지수를 산출하여 자동 대피 권고를 발령합니다.", s:"속도: 뉴스보다 30분 빠름", i:"fas fa-biohazard"},
-                    {t:"03. Social Sentiment Intelligence", d:"정부 정책 및 경제 이슈에 대한 여론을 실시간 모니터링합니다. 경제적 고통 지도화 및 불법 집회/시위 징후를 조기에 포착합니다.", s:"기능: 가짜뉴스 자동 필터링", i:"fas fa-chart-line"},
-                    {t:"04. Governance Integrity (Gov-Shield)", d:"블록체인 기반 데이터 공증 및 다단계 생체 인증을 통해 모든 정보와 접속 기록을 위변조 불가능하게 기록하여 행정 투명성을 보장합니다.", s:"기능: 100% 법적 증거 효력", i:"fas fa-link"}
+                    {t:"01. Pre-Crime Intelligence", d:"딥러닝 네트워크 분석 및 OSINT를 통해 조직 범죄, 마약 밀매, 인신매매를 계획 단계에서 탐지합니다. 단순 조직원이 아닌 핵심 주동자(Kingpin)를 식별하여 법 집행 효과를 극대화합니다.", s:"타겟: 텔레그램, 다크웹", i:"fas fa-shield-alt"},
+                    {t:"02. Early Disaster Response", d:"실시간 군중 심리 분석과 고해상도 GIS를 통합하여 홍수, 지진, 화재 징후를 포착합니다. 뉴스보다 30분 빠르게 자동 대피 권고를 발령합니다.", s:"속도: 뉴스보다 30분 빠름", i:"fas fa-biohazard"},
+                    {t:"03. Social Sentiment Intelligence", d:"정부 정책 및 경제 이슈(물가, 연료비)에 대한 여론을 모니터링합니다. 불법 집회나 폭동 징후를 조기 포착하고 가짜뉴스를 자동 필터링하여 국격을 보호합니다.", s:"기능: 가짜뉴스 자동 필터링", i:"fas fa-chart-line"},
+                    {t:"04. Governance Integrity (Gov-Shield)", d:"모든 정보와 접속 기록을 블록체인에 영구 기록하여 100% 법적 증거 효력을 보장합니다. 행정 남용을 방지하고 대중의 신뢰를 구축합니다.", s:"기능: 100% 법적 증거 효력", i:"fas fa-link"}
                 ]
             },
 
             en: {
-                contact: "Contact",
-                hero_sub: "SENTINEL AI-powered Next-Gen Intelligence Platform. Real-time 62-platform analysis and psychological quantification.",
                 hero_feat_1: "62 Platforms", hero_feat_2: "Psychology", hero_feat_3: "Prediction", hero_feat_4: "83% Cost Cut",
                 stat_total: "TOTAL COLLECTED", stat_active: "ACTIVE CHANNELS", stat_daily: "DAILY DATA",
+                hero_sub: "SENTINEL AI-powered Next-Gen Intelligence Platform. Real-time 62-platform analysis and psychological quantification.",
                 process_title: "Just Enter One Keyword, Sentinel AI Finds Everything",
                 process_desc: "No more manual channel searching, message copying, or Excel organizing.",
                 step1_t: "Enter Keyword", step1_d: "Just one core keyword like \"Nike\", \"Bitcoin\".",
@@ -453,23 +427,22 @@
                 old_title: "No More", old_1: "Manual channel search", old_2: "Copy-paste messages", old_3: "VPN switching", old_4: "24/7 monitoring staff",
                 new_title: "AI Does It", new_1: "Auto-discover 62 platforms", new_2: "24/7 auto collection", new_3: "Auto user classification", new_4: "Auto export CSV/JSON",
                 tech_title: "Proprietary AI Engine", tech_sub: "Auto-expansion, context analysis, behavior learning",
-                cases_title: "10 Key Industry Use Cases", cases_sub: "Automated from target discovery to big data collection", cases_footer: "People talk right before spending money. SENTINEL captures that first.",
+                cases_title: "10 Key Industry Use Cases", cases_sub: "Automated from target discovery to big data collection", 
                 dash_title: "Admin Dashboard", dash_sub: "21 Admin Pages Fully Supported",
                 price_title: "LICENSE PLANS", price_sub: "Choose the optimal plan for your business scale",
                 plan_btn_start: "Start Now", plan_btn_up: "Upgrade", plan_btn_full: "Full Access", plan_btn_contact: "Contact Sales",
                 trial_title: "Start 7-Day Free Trial", trial_desc: "Experience all BASIC plan features for free for 7 days. No credit card required.", trial_btn: "Request Free Trial",
                 
-                // GOV Section EN
+                // GOV Section EN - FIXED TRANSLATION
                 gov_hero_sub: "National Intelligence Control Platform. Securing public safety via crime prediction & disaster response.",
                 gov_slogan: "\"Empowering Modern Governance through Predictive Intelligence\"",
                 gov_auth_text: "This module is exclusively for approved government and judicial institutions.<br>Closed licenses issued after official request.",
                 gov_btn_req: "Request Access", gov_btn_doc: "Download Specs",
                 
-                // Fixed: GOV Sec 5 & 6 (Pure English)
                 gov_sec5_title: "05. The Paradigm Shift: From Recovery to Prevention",
                 gov_sec5_desc: "Stop the Crisis Before It Starts. SENTINEL GOV operates on the principle of 'Pre-emptive Governance', identifying risks at their incubation stage.",
-                gov_sec5_list: ["Pre-emptive Crime Suppression", "Predictive Disaster Defense", "Social Harmony Stabilization"],
-
+                gov_sec5_list: ["Pre-emptive Crime Suppression: Intercept criminal intent in the digital planning phase.", "Predictive Disaster Defense: Turn 'Rescue Operations' into 'Safe Evacuations'.", "Social Harmony Stabilization: Detect the 'National Anger Index' before confrontation."],
+                
                 gov_sec6_title: "06. 24/7 Autonomous Sentinel AI",
                 gov_sec6_desc: "Constant Vigilance Without Human Fatigue. Scans millions of data points across encrypted messengers and the Deep Web to present only the 'Absolute Truth'.",
                 gov_sec6_list: ["Autonomous Monitoring", "Behavioral Forecasting", "Executive Intelligence Briefs"],
@@ -492,27 +465,31 @@
                     ent: ["All 62 Platforms", "100,000 Daily Data", "50 Keywords Limit", "API Access"],
                     ext: ["Unlimited Everything", "White Label Solution", "Auto-Messaging Feature", "Dedicated Node Server", "Faster than Enterprise"]
                 },
+                // FIXED 4 MODULES ENGLISH
                 gov_modules: [
-                    {t:"01. Pre-Crime Intelligence", d:"Detects organized crime, drug/human trafficking during planning stages via Deep Learning & OSINT. Identifies 'Kingpins' beyond low-level operatives.", s:"Target: Telegram, Dark Web", i:"fas fa-shield-alt"},
-                    {t:"02. Early Disaster Response", d:"Real-time disaster detection & Barangay-Level Risk Index via GIS. Provides automated evacuation advisories up to 30 mins faster than official channels.", s:"Speed: 30 mins faster", i:"fas fa-biohazard"},
-                    {t:"03. Social Sentiment Intelligence", d:"Monitors public opinion on policy & economy. Maps economic distress, predicts unrest, and filters 'Fake News' to protect national reputation.", s:"Feature: Fake News Filter", i:"fas fa-chart-line"},
-                    {t:"04. Governance Integrity (Gov-Shield)", d:"Blockchain-based Data Notary & Biometric Authentication ensuring 100% legal admissibility of digital evidence and preventing administrative abuse.", s:"Feature: Legal Admissibility", i:"fas fa-link"}
+                    {t:"01. Pre-Crime Intelligence (PCI)", d:"Deep Learning Network Analysis & OSINT targeting encrypted communication channels (e.g., Telegram, Dark Web). Identifies 'Kingpins' rather than just low-level operatives.", s:"Neutralizing Threats at the Source", i:"fas fa-shield-alt"},
+                    {t:"02. Early Disaster Response (EDR)", d:"Real-time detection of disaster cues (floods, earthquakes) from local ground reports and social sensors. Barangay-Level Risk Index detects emergencies up to 30 minutes faster than official channels.", s:"Faster Than the News", i:"fas fa-biohazard"},
+                    {t:"03. Social Sentiment Intelligence (SSI)", d:"Real-time monitoring of public opinion on government policies and economic issues. Features Economic Distress Mapping, Unrest Prediction, and a Misinformation Filter.", s:"Data-Driven Governance", i:"fas fa-chart-line"},
+                    {t:"04. Governance Integrity (Gov-Shield)", d:"Blockchain-based Data Notary & Multi-level Biometric Authentication. Ensures the 100% Legal Admissibility of digital evidence while preventing administrative abuse.", s:"Building Public Trust", i:"fas fa-link"}
                 ]
             }
         };
 
         function switchTab(id) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active', 'gov-active'));
+            
             document.getElementById('tab-' + id).classList.add('active');
-            document.getElementById('nav-' + id).classList.add('active');
+            const btn = document.getElementById('nav-' + id);
             
             if (id === 'gov') {
                 document.body.classList.add('theme-gov');
+                btn.classList.add('gov-active');
                 document.getElementById('btn-ko').style.borderColor = '#ff2a2a';
-                document.getElementById('btn-en').style.borderColor = 'rgba(255,255,255,0.1)';
+                document.getElementById('btn-en').style.borderColor = '#333';
             } else {
                 document.body.classList.remove('theme-gov');
+                btn.classList.add('active');
                 document.getElementById('btn-ko').style.borderColor = '#00ff9d';
             }
             window.scrollTo({top: 0, behavior: 'smooth'});
@@ -520,73 +497,94 @@
 
         function setLang(lang) {
             document.querySelectorAll('#btn-ko, #btn-en').forEach(btn => {
-                btn.classList.remove('active-lang', 'text-gray-400');
-                btn.classList.add('text-gray-400');
+                btn.classList.remove('active-lang');
+                btn.classList.add('text-gray-500');
             });
             const activeBtn = document.getElementById('btn-' + lang);
-            activeBtn.classList.remove('text-gray-400');
+            activeBtn.classList.remove('text-gray-500');
             activeBtn.classList.add('active-lang');
 
-            const data = db[lang] || db.en;
+            const data = db[lang];
 
+            // 1. Simple Text Replacement
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (data[key]) el.innerHTML = data[key];
             });
 
-            // Update GOV Lists for Sec 5 & 6
-            const govList5 = document.getElementById('gov-sec5-list');
-            govList5.innerHTML = '';
-            data.gov_sec5_list.forEach(item => govList5.innerHTML += `<li>• ${item}</li>`);
+            // 2. Render GOV Modules (Correct Data Binding)
+            const govGrid = document.getElementById('gov-modules-grid');
+            if (govGrid) {
+                govGrid.innerHTML = '';
+                data.gov_modules.forEach(m => {
+                    govGrid.innerHTML += `
+                        <div class="gov-card group">
+                            <div class="text-[#ff2a2a] text-4xl mb-6 group-hover:scale-110 transition duration-300"><i class="${m.i}"></i></div>
+                            <h4 class="text-xl font-bold mb-4 text-white uppercase tracking-tight font-display">${m.t}</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed mb-4">${m.d}</p>
+                            <div class="mt-4 pt-4 border-t border-white/10"><p class="text-xs text-[#ff2a2a] font-bold font-mono-num">${m.s}</p></div>
+                        </div>
+                    `;
+                });
+            }
 
-            const govList6 = document.getElementById('gov-sec6-list');
-            govList6.innerHTML = '';
-            data.gov_sec6_list.forEach(item => govList6.innerHTML += `<li>• ${item}</li>`);
+            // 3. Render GOV Lists (Sec 5 & 6)
+            const sec5List = document.getElementById('gov-sec5-list');
+            if (sec5List) {
+                sec5List.innerHTML = '';
+                data.gov_sec5_list.forEach(item => sec5List.innerHTML += `<li class="flex items-start gap-2"><i class="fas fa-caret-right text-red-500 mt-1"></i> <span>${item}</span></li>`);
+            }
 
-            renderGrid('cases-grid', data.cases, (c, i) => `
-                <div class="glass-panel p-6 rounded-xl hover:bg-${c.c}-500/5 group transition-all border-l-2 border-${c.c}-500/30">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="text-${c.c}-400 text-xl group-hover:text-white"><i class="${c.i}"></i></div>
-                        <span class="text-[10px] font-mono text-gray-600 group-hover:text-gray-400">CASE_${String(i + 1).padStart(2, '0')}</span>
-                    </div>
-                    <h4 class="font-bold text-white mb-2 text-sm uppercase tracking-wider">${c.t}</h4>
-                    <p class="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300">${c.d}</p>
-                </div>
-            `);
+            const sec6List = document.getElementById('gov-sec6-list');
+            if (sec6List) {
+                sec6List.innerHTML = '';
+                data.gov_sec6_list.forEach(item => sec6List.innerHTML += `<li class="flex items-start gap-2"><i class="fas fa-caret-right text-red-500 mt-1"></i> <span>${item}</span></li>`);
+            }
 
-            renderGrid('tech-grid', data.techs, (t) => `
-                <div class="glass-panel p-8 rounded-2xl border-l-4 border-${t.c}-500 hover:border-${t.c}-400 transition">
-                    <h3 class="text-xl font-bold mb-4 text-${t.c}-400">${t.t}</h3>
-                    <p class="text-gray-400 leading-relaxed mb-4 text-sm">${t.d}</p>
-                    <div class="text-xs text-${t.c}-400 font-bold bg-${t.c}-500/10 inline-block px-2 py-1 rounded">${t.r}</div>
-                </div>
-            `);
+            // 4. Render Cases
+            const casesGrid = document.getElementById('cases-grid');
+            if (casesGrid) {
+                casesGrid.innerHTML = '';
+                data.cases.forEach((c, i) => {
+                    casesGrid.innerHTML += `
+                        <div class="glass-panel p-6 rounded-xl hover:bg-${c.c}-500/5 group transition-all border-l-2 border-${c.c}-500/30">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="text-${c.c}-400 text-xl group-hover:text-white"><i class="${c.i}"></i></div>
+                                <span class="text-[10px] font-mono text-gray-600 group-hover:text-gray-400">CASE_${String(i + 1).padStart(2, '0')}</span>
+                            </div>
+                            <h4 class="font-bold text-white mb-2 text-sm uppercase tracking-wider">${c.t}</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300">${c.d}</p>
+                        </div>
+                    `;
+                });
+            }
 
+            // 5. Render Tech
+            const techGrid = document.getElementById('tech-grid');
+            if (techGrid) {
+                techGrid.innerHTML = '';
+                data.techs.forEach(t => {
+                    techGrid.innerHTML += `
+                        <div class="glass-panel p-8 rounded-2xl border-l-4 border-${t.c}-500 hover:border-${t.c}-400 transition">
+                            <h3 class="text-xl font-bold mb-4 text-${t.c}-400">${t.t}</h3>
+                            <p class="text-gray-400 leading-relaxed mb-4 text-sm">${t.d}</p>
+                            <div class="text-xs text-${t.c}-400 font-bold bg-${t.c}-500/10 inline-block px-2 py-1 rounded">${t.r}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            // 6. Render Plans
             ['basic', 'pro', 'ent', 'ext'].forEach(plan => {
                 const list = document.getElementById('plan-' + plan + '-list');
-                list.innerHTML = '';
-                data.plans[plan].forEach(item => {
-                    let iconClass = plan === 'ext' ? 'text-purple-400' : (plan === 'basic' ? 'text-gray-500' : (plan === 'pro' ? 'text-blue-400' : 'text-accent'));
-                    list.innerHTML += `<li class="flex items-center gap-3"><i class="fas fa-check ${iconClass}"></i> ${item}</li>`;
-                });
+                if (list && data.plans[plan]) {
+                    list.innerHTML = '';
+                    data.plans[plan].forEach(item => {
+                        let iconClass = plan === 'ext' ? 'text-purple-400' : (plan === 'basic' ? 'text-gray-500' : (plan === 'pro' ? 'text-blue-400' : 'text-accent-main'));
+                        list.innerHTML += `<li class="flex items-center gap-3"><i class="fas fa-check ${iconClass}"></i> ${item}</li>`;
+                    });
+                }
             });
-
-            renderGrid('gov-modules-grid', data.gov_modules, (m) => `
-                <div class="glass-panel p-10 border-red-500/20 hover:border-red-500/60 rounded-3xl group transition-all">
-                    <div class="text-red-500 text-4xl mb-6 group-hover:scale-110 transition duration-300"><i class="${m.i}"></i></div>
-                    <h4 class="text-xl font-bold mb-4 text-white uppercase tracking-tight">${m.t}</h4>
-                    <p class="text-sm text-gray-400 leading-relaxed mb-4">${m.d}</p>
-                    <div class="mt-4 pt-4 border-t border-white/5"><p class="text-xs text-red-300 font-bold">${m.s}</p></div>
-                </div>
-            `);
-        }
-
-        function renderGrid(id, data, template) {
-            const grid = document.getElementById(id);
-            if(grid) {
-                grid.innerHTML = '';
-                data.forEach((item, index) => { grid.innerHTML += template(item, index); });
-            }
         }
 
         setInterval(() => {
