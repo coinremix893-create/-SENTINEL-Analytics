@@ -11,11 +11,11 @@
 
         :root {
             --bg-deep: #000000;
-            --accent-main: #00ff9d; /* 기본 그린 */
-            --accent-gov: #ff2a2a;   /* 정부 레드 */
+            --accent-main: #00ff9d; /* 기본: 그린 */
+            --accent-gov: #ff2a2a;   /* GOV: 레드 */
         }
 
-        /* GOV 모드일 때 메인 색상을 레드로 변경하여 언더라인 색상 자동 적용 */
+        /* GOV 테마 활성화 시 메인 컬러 변경 (언더라인 포함) */
         body.theme-gov { 
             --accent-main: #ff2a2a; 
         }
@@ -32,18 +32,17 @@
         .text-glow { text-shadow: 0 0 10px rgba(0, 255, 157, 0.5); }
         .text-glow-red { text-shadow: 0 0 15px rgba(255, 42, 42, 0.6); }
 
-        /* 네비게이션 탭 스타일 (모바일/PC 공통) */
+        /* 네비게이션 탭 (모바일 최적화) */
         .nav-link { 
             position: relative; 
             color: #666; 
             transition: color 0.3s; 
             text-transform: uppercase; 
             font-weight: 800; 
-            font-size: 0.75rem; /* 모바일 대응 크기 */
+            font-size: 0.7rem; /* 모바일 폰트 크기 */
             cursor: pointer; 
             white-space: nowrap;
-            letter-spacing: 0.05em;
-            padding-bottom: 24px; /* 언더라인 위치 확보 */
+            padding-bottom: 24px; /* 언더라인 여백 */
         }
         
         @media (min-width: 768px) {
@@ -52,7 +51,7 @@
 
         .nav-link.active { color: #fff; }
         
-        /* 언더라인 효과 */
+        /* 핵심: CSS 변수를 사용해 테마에 따라 언더라인 색상 자동 변경 */
         .nav-link.active::after {
             content: ''; 
             position: absolute; 
@@ -60,11 +59,12 @@
             left: 0; 
             width: 100%; 
             height: 3px; 
-            background: var(--accent-main); /* 바디 테마에 따라 색상 자동 변경 */
+            background: var(--accent-main); 
             box-shadow: 0 0 15px var(--accent-main);
+            transition: background 0.3s, box-shadow 0.3s;
         }
 
-        /* 기타 UI 요소들 (건드리지 않음) */
+        /* 기타 UI 컴포넌트 */
         .glass-panel {
             background: rgba(20, 20, 25, 0.6);
             backdrop-filter: blur(16px);
@@ -81,27 +81,16 @@
         .tab-content.active { display: block; opacity: 1; animation: slideUp 0.5s ease forwards; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .active-lang { background: rgba(0, 255, 157, 0.15) !important; color: #00ff9d !important; border: 1px solid #00ff9d !important; }
-        body.theme-gov .active-lang { background: rgba(255, 42, 42, 0.15) !important; color: #ff2a2a !important; border-color: #ff2a2a !important; }
-
-        .nav-badge {
-            display: flex; align-items: center; gap: 6px;
-            padding: 4px 10px; border-radius: 6px;
-            background: #000; border: 1px solid #333;
-            font-size: 10px; font-weight: 700; font-family: 'Orbitron', sans-serif; color: #888;
-        }
-        .nav-badge span { color: var(--accent-main); }
+        .active-lang { background: rgba(255, 255, 255, 0.1) !important; color: #fff !important; border: 1px solid #fff !important; }
         
         .platform-pill {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 8px 16px; border-radius: 8px;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 12px; border-radius: 6px;
             background: rgba(10, 10, 15, 0.8); border: 1px solid;
             font-size: 11px; font-weight: 700; color: #fff;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            white-space: nowrap;
+            transition: transform 0.3s;
         }
-        .platform-pill:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); }
+        .platform-pill:hover { transform: translateY(-3px); }
         
         .logo-box {
             width: 32px; height: 32px;
@@ -111,37 +100,33 @@
             color: black; font-family: 'Orbitron', sans-serif; font-weight: 900;
         }
         
-        .stat-box { background: #050a07; border: 1px solid rgba(0, 255, 157, 0.15); border-radius: 12px; padding: 24px; text-align: center; }
+        .stat-box { background: #050a07; border: 1px solid rgba(0, 255, 157, 0.15); border-radius: 12px; padding: 20px; text-align: center; }
+        
         .contact-btn {
             background: #00ff9d; color: black; font-weight: 800; font-size: 11px;
             padding: 8px 16px; border-radius: 4px; box-shadow: 0 0 15px rgba(0,255,157,0.3); transition: 0.3s;
         }
-        .contact-btn:hover { background: #00e08b; box-shadow: 0 0 25px rgba(0,255,157,0.5); }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="fixed top-0 w-full bg-black border-b border-white/10 z-[100] h-20">
+    <nav class="fixed top-0 w-full bg-black border-b border-white/10 z-[100] h-16 md:h-20">
         <div class="max-w-[1400px] mx-auto px-4 md:px-6 h-full flex justify-between items-center">
             
-            <div class="flex items-center gap-2 md:gap-3">
+            <div class="flex items-center gap-2">
                 <div class="logo-box">S</div>
                 <div class="font-display font-bold text-sm md:text-lg tracking-wider text-white hidden sm:block">
                     SENTINEL <span class="text-[#00ff9d]">Analytics</span>
                 </div>
             </div>
 
-            <div class="flex gap-6 md:gap-10 h-full items-end">
+            <div class="flex gap-4 md:gap-10 h-full items-end pb-0">
                 <button onclick="switchTab('main')" id="nav-main" class="nav-link active">SENTINEL BUSINESS</button>
                 <button onclick="switchTab('gov')" id="nav-gov" class="nav-link hover:text-red-500">SENTINEL GOV</button>
             </div>
 
             <div class="flex items-center gap-2 md:gap-4">
-                <div class="hidden lg:flex gap-2">
-                    <div class="nav-badge">PLATFORMS <span>62+</span></div>
-                    <div class="nav-badge">AI <span>✔</span></div>
-                </div>
-                <div class="flex bg-black border border-white/10 rounded p-1">
+                <div class="flex bg-black border border-white/10 rounded p-0.5">
                     <button onclick="setLang('ko')" id="btn-ko" class="px-2 py-1 text-[10px] font-bold rounded text-gray-500 active-lang transition">KO</button>
                     <button onclick="setLang('en')" id="btn-en" class="px-2 py-1 text-[10px] font-bold rounded text-gray-500 transition hover:text-white">EN</button>
                 </div>
@@ -150,68 +135,50 @@
         </div>
     </nav>
 
-    <main id="tab-main" class="tab-content active pt-32">
-        <header class="px-6 pb-24 text-center">
+    <main id="tab-main" class="tab-content active pt-24 md:pt-32">
+        <header class="px-4 md:px-6 pb-20 text-center">
             <div class="max-w-7xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/30 bg-green-900/10 text-green-400 text-[10px] font-bold tracking-[0.2em] uppercase mb-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/30 bg-green-900/10 text-green-400 text-[10px] font-bold tracking-[0.2em] uppercase mb-6">
                     <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                     Powered by Sentinel AI Intelligence
                 </div>
-                <h1 class="font-display text-4xl md:text-6xl font-black mb-6 leading-tight text-white">
+                <h1 class="font-display text-3xl md:text-6xl font-black mb-6 leading-tight text-white">
                     BEYOND COLLECTION.<br>
                     <span class="text-[#00ff9d] text-glow">UNDERSTAND HUMANS.</span>
                 </h1>
                 
-                <div class="flex flex-wrap justify-center gap-4 mb-8 text-sm md:text-base font-medium text-gray-300 font-display">
-                    <span class="flex items-center gap-2"><i class="fas fa-layer-group text-green-400"></i> <span data-i18n="hero_feat_1">62개 플랫폼</span></span>
+                <div class="flex flex-wrap justify-center gap-3 mb-8 text-xs md:text-base font-medium text-gray-300 font-display">
+                    <span class="flex items-center gap-1"><i class="fas fa-layer-group text-green-400"></i> <span data-i18n="hero_feat_1">62개 플랫폼</span></span>
                     <span class="text-gray-700">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-brain text-blue-400"></i> <span data-i18n="hero_feat_2">심리 분석</span></span>
+                    <span class="flex items-center gap-1"><i class="fas fa-brain text-blue-400"></i> <span data-i18n="hero_feat_2">심리 분석</span></span>
                     <span class="text-gray-700">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-clock text-purple-400"></i> <span data-i18n="hero_feat_3">행동 예측</span></span>
+                    <span class="flex items-center gap-1"><i class="fas fa-clock text-purple-400"></i> <span data-i18n="hero_feat_3">행동 예측</span></span>
                     <span class="text-gray-700">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-arrow-down text-pink-400"></i> <span data-i18n="hero_feat_4">83% 비용 절감</span></span>
+                    <span class="flex items-center gap-1"><i class="fas fa-arrow-down text-pink-400"></i> <span data-i18n="hero_feat_4">83% 비용 절감</span></span>
                 </div>
 
-                <p class="text-gray-400 text-lg md:text-xl max-w-4xl mx-auto mb-12 font-light leading-relaxed" data-i18n="hero_sub">
-                    SENTINEL AI 기반 차세대 인텔리전스 플랫폼. 62개 플랫폼 실시간 분석, 심리 상태 정량화, 행동 패턴 학습.
-                </p>
-
-                <div class="flex flex-wrap justify-center gap-3 mb-16 max-w-6xl mx-auto">
+                <div class="flex flex-wrap justify-center gap-2 mb-12 max-w-5xl mx-auto px-2">
                     <span class="platform-pill" style="border-color: #229ED9; color: #229ED9;"><i class="fab fa-telegram-plane"></i> Telegram</span>
                     <span class="platform-pill" style="border-color: #FEE500; color: #FEE500;"><i class="fas fa-comment"></i> KakaoTalk</span>
                     <span class="platform-pill" style="border-color: #5865F2; color: #5865F2;"><i class="fab fa-discord"></i> Discord</span>
                     <span class="platform-pill" style="border-color: #1DA1F2; color: #1DA1F2;"><i class="fab fa-twitter"></i> Twitter/X</span>
                     <span class="platform-pill" style="border-color: #E1306C; color: #E1306C;"><i class="fab fa-instagram"></i> Instagram</span>
                     <span class="platform-pill" style="border-color: #FF0000; color: #FF0000;"><i class="fab fa-youtube"></i> YouTube</span>
-                    <span class="platform-pill" style="border-color: #1877F2; color: #1877F2;"><i class="fab fa-facebook-f"></i> Facebook</span>
-                    <span class="platform-pill" style="border-color: #FE2C55; color: #FE2C55;"><i class="fab fa-tiktok"></i> TikTok</span>
-                    <span class="platform-pill" style="border-color: #0A66C2; color: #0A66C2;"><i class="fab fa-linkedin-in"></i> LinkedIn</span>
-                    <span class="platform-pill" style="border-color: #25D366; color: #25D366;"><i class="fab fa-whatsapp"></i> WhatsApp</span>
-                    <span class="platform-pill" style="border-color: #00C300; color: #00C300;"><i class="fab fa-line"></i> LINE</span>
-                    <span class="platform-pill" style="border-color: #7BB32E; color: #7BB32E;"><i class="fab fa-weixin"></i> WeChat</span>
-                    <span class="platform-pill" style="border-color: #FF4500; color: #FF4500;"><i class="fab fa-reddit-alien"></i> Reddit</span>
-                    <span class="platform-pill" style="border-color: #03C75A; color: #03C75A;"><i class="fas fa-search"></i> Naver</span>
-                    <span class="platform-pill" style="border-color: #F4C402; color: #F4C402;"><i class="fas fa-comment-dots"></i> Daum</span>
-                    <span class="platform-pill" style="border-color: #ce3030; color: #ce3030;"><i class="fas fa-users"></i> DCInside</span>
-                    <span class="platform-pill" style="border-color: #9146FF; color: #9146FF;"><i class="fab fa-twitch"></i> Twitch</span>
-                    <span class="platform-pill" style="border-color: #F7931A; color: #F7931A;"><i class="fab fa-bitcoin"></i> BitcoinTalk</span>
-                    <span class="platform-pill" style="border-color: #df2029; color: #df2029;"><i class="fab fa-weibo"></i> Weibo</span>
-                    <span class="platform-pill" style="border-color: #2932e1; color: #2932e1;"><i class="fas fa-paw"></i> Baidu</span>
-                    <span class="platform-pill" style="border-color: #00ff9d; color: #00ff9d;">+ 42 MORE PLATFORMS</span>
+                    <span class="platform-pill" style="border-color: #00ff9d; color: #00ff9d;">+ 56 MORE</span>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
                     <div class="stat-box">
-                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2" data-i18n="stat_total">TOTAL COLLECTED</p>
-                        <h2 class="font-mono-num text-4xl font-bold text-[#00ff9d] text-glow" id="counter">1,316,008</h2>
+                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1" data-i18n="stat_total">TOTAL COLLECTED</p>
+                        <h2 class="font-mono-num text-3xl md:text-4xl font-bold text-[#00ff9d] text-glow" id="counter">1,316,008</h2>
                     </div>
                     <div class="stat-box">
-                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2" data-i18n="stat_active">ACTIVE CHANNELS</p>
-                        <h2 class="font-mono-num text-4xl font-bold text-[#bd00ff]">16,527</h2>
+                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1" data-i18n="stat_active">ACTIVE CHANNELS</p>
+                        <h2 class="font-mono-num text-3xl md:text-4xl font-bold text-[#bd00ff]">16,527</h2>
                     </div>
                     <div class="stat-box">
-                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-2" data-i18n="stat_daily">DAILY DATA</p>
-                        <h2 class="font-mono-num text-4xl font-bold text-[#00f0ff]">284K</h2>
+                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1" data-i18n="stat_daily">DAILY DATA</p>
+                        <h2 class="font-mono-num text-3xl md:text-4xl font-bold text-[#00f0ff]">284K</h2>
                     </div>
                 </div>
             </div>
@@ -219,53 +186,57 @@
 
         <div class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-10"></div>
 
-        <section class="py-20 px-6">
+        <section class="py-16 px-4 md:px-6">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-20">
-                    <h2 class="font-display text-3xl font-bold mb-4 text-white" data-i18n="process_title">키워드 하나만 입력하면,<br>Sentinel AI가 모든 걸 찾아냅니다</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto mb-2" data-i18n="process_desc">더 이상 수동으로 채널을 찾고, 메시지를 복사하고, 엑셀에 정리할 필요 없습니다.</p>
-                    <p class="text-[#00ff9d] font-bold" data-i18n="process_sub">Sentinel AI가 24시간 자동으로 모든 데이터를 수집하고 분석합니다.</p>
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-2xl md:text-3xl font-bold mb-4" data-i18n="process_title">키워드 하나만 입력하면,<br>Sentinel AI가 모든 걸 찾아냅니다</h2>
+                    <p class="text-gray-400 text-sm md:text-base" data-i18n="process_desc">더 이상 수동으로 채널을 찾고, 메시지를 복사하고, 엑셀에 정리할 필요 없습니다.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
                     <div class="stat-box">
-                        <div class="text-2xl font-bold text-[#00ff9d] mb-4">1</div>
+                        <div class="text-xl font-bold text-[#00ff9d] mb-2">1</div>
                         <h3 class="font-bold mb-2 text-white" data-i18n="step1_t">키워드 입력</h3>
                         <p class="text-xs text-gray-400" data-i18n="step1_d">"나이키", "비트코인" 등 관심 키워드 1개만 입력하세요.</p>
                     </div>
                     <div class="stat-box">
-                        <div class="text-2xl font-bold text-[#00f0ff] mb-4">2</div>
+                        <div class="text-xl font-bold text-[#00f0ff] mb-2">2</div>
                         <h3 class="font-bold mb-2 text-white" data-i18n="step2_t">AI 자동 분석</h3>
                         <p class="text-xs text-gray-400" data-i18n="step2_d">500+ 연관 키워드 생성 및 관련 채널을 자동으로 발견합니다.</p>
                     </div>
                     <div class="stat-box">
-                        <div class="text-2xl font-bold text-[#bd00ff] mb-4">3</div>
+                        <div class="text-xl font-bold text-[#bd00ff] mb-2">3</div>
                         <h3 class="font-bold mb-2 text-white" data-i18n="step3_t">실시간 수집</h3>
                         <p class="text-xs text-gray-400" data-i18n="step3_d">62개 이상의 플랫폼에서 24시간 수집하고 CSV/JSON으로 즉시 내보냅니다.</p>
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="stat-box border-red-500/20 text-left">
-                        <h3 class="text-xl font-bold text-red-500 mb-6 flex items-center gap-2"><i class="fas fa-times"></i> <span data-i18n="old_title">이제 안 해도 됩니다</span></h3>
-                        <p class="text-xs text-gray-500 mb-6 font-mono">일반 크롤러 (General Crawler)</p>
+                    <div class="glass-panel p-6 md:p-8 rounded-2xl border-l-4 border-red-500 bg-red-500/5 opacity-80">
+                        <h3 class="text-lg md:text-xl font-bold text-gray-300 mb-6 flex items-center gap-3">
+                            <i class="fas fa-times text-red-500 text-xl"></i> <span data-i18n="comp_title_bad">경쟁사는 데이터만 수집합니다</span>
+                        </h3>
+                        <p class="text-xs text-gray-500 mb-4 font-mono">일반 크롤러 (General Crawler)</p>
                         <ul class="space-y-4 text-sm text-gray-400">
-                            <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="old_1">수동 채널 검색</span></li>
-                            <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="old_2">메시지 복사 붙여넣기</span></li>
-                            <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="old_3">VPN 우회 및 IP 차단</span></li>
-                            <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="old_4">24시간 모니터링 인력</span></li>
+                            <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="comp_bad_1">단순 텍스트만 수집 (무엇)</span></li>
+                            <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="comp_bad_2">"무엇"만 알려줌</span></li>
+                            <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="comp_bad_3">수동 분석 필요</span></li>
+                            <li class="flex gap-3"><span class="text-red-500">✗</span> <span data-i18n="comp_bad_4">행동 예측 불가</span></li>
                         </ul>
                     </div>
-                    <div class="stat-box border-green-500/20 text-left bg-green-500/5">
-                        <h3 class="text-xl font-bold text-[#00ff9d] mb-6 flex items-center gap-2"><i class="fas fa-check"></i> <span data-i18n="new_title">AI가 해드립니다</span></h3>
-                        <p class="text-xs text-[#00ff9d] mb-6 font-mono">SENTINEL AI ENGINE</p>
-                        <ul class="space-y-4 text-sm text-white">
-                            <li class="flex gap-3"><span class="text-[#00ff9d]">✓</span> <span data-i18n="new_1">62개 플랫폼 자동 발견</span></li>
-                            <li class="flex gap-3"><span class="text-[#00ff9d]">✓</span> <span data-i18n="new_2">24시간 자동 수집</span></li>
-                            <li class="flex gap-3"><span class="text-[#00ff9d]">✓</span> <span data-i18n="new_3">사용자 자동 분류</span></li>
-                            <li class="flex gap-3"><span class="text-[#00ff9d]">✓</span> <span data-i18n="new_4">CSV/JSON 자동 내보내기</span></li>
+                    <div class="glass-panel p-6 md:p-8 rounded-2xl border-l-4 border-[#00ff9d] bg-[#00ff9d]/5 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 px-3 py-1 bg-[#00ff9d] text-black text-[10px] font-bold">AI POWERED</div>
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-6 flex items-center gap-3">
+                            <i class="fas fa-check text-[#00ff9d] text-xl"></i> <span data-i18n="comp_title_good">SENTINEL AI는 인간을 이해합니다</span>
+                        </h3>
+                        <p class="text-xs text-[#00ff9d] mb-4 font-mono">SENTINEL AI ENGINE</p>
+                        <ul class="space-y-4 text-sm text-white mb-6">
+                            <li class="flex gap-3"><span class="text-[#00ff9d]">✓</span> <span data-i18n="comp_good_1">심리 분석: 타겟의 감정 상태 7단계 분석</span></li>
+                            <li class="flex gap-3"><span class="text-[#00ff9d]">✓</span> <span data-i18n="comp_good_2">행동 예측: 행동 패턴 기반으로 타겟 행동 시점 예측</span></li>
+                            <li class="flex gap-3"><span class="text-[#00ff9d]">✓</span> <span data-i18n="comp_good_3">의도 점수화: 0-100점 자동 산출</span></li>
+                            <li class="flex gap-3"><span class="text-[#00ff9d]">✓</span> <span data-i18n="comp_good_4">신원 매핑: 92% 정확도로 다른 플랫폼 동일인 식별</span></li>
                         </ul>
-                        <div class="mt-6 bg-black/60 rounded-lg p-4 border border-white/10 text-center">
-                            <p class="text-[10px] text-gray-400 mb-2 uppercase tracking-wider" data-i18n="id_map_title">92% 정확도 동일인 식별</p>
+                        <div class="bg-black/60 rounded-lg p-4 border border-white/10 text-center">
+                            <p class="text-[10px] text-gray-400 mb-2 uppercase tracking-wider" data-i18n="id_map_title">92% 정확도로 다른 플랫폼의 동일인 식별</p>
                             <p class="text-xs text-[#00ff9d] font-mono leading-relaxed" data-i18n="id_map_desc">
                                 텔레그램 "CryptoKing" = 디스코드 "TraderX" = 트위터 "@InvestPro"<br>
                                 → 같은 사람!
@@ -276,29 +247,29 @@
             </div>
         </section>
 
-        <section class="py-20 px-6 bg-white/[0.02]">
+        <section class="py-20 px-4 md:px-6 bg-white/[0.02]">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="font-display text-3xl font-bold mb-4 text-white" data-i18n="tech_title">Sentinel AI 독자 엔진</h2>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold mb-4 text-white" data-i18n="tech_title">Sentinel AI 독자 엔진</h2>
                     <p class="text-gray-500" data-i18n="tech_sub">독자 개발 AI 엔진. 자동 키워드 확장, 맥락 분석, 행동 패턴 학습</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="tech-grid"></div>
             </div>
         </section>
 
-        <section class="py-20 px-6">
+        <section class="py-20 px-4 md:px-6">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="font-display text-3xl font-bold mb-4 text-white" data-i18n="cases_title">10대 핵심 업종 활용사례</h2>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold mb-4 text-white" data-i18n="cases_title">10대 핵심 업종 활용사례</h2>
                     <p class="text-gray-500" data-i18n="cases_sub">타겟 발견부터 빅데이터 수집까지 완전 자동화</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5" id="cases-grid"></div>
             </div>
         </section>
 
-        <section class="py-20 px-6 border-y border-white/5 bg-[#050a07]">
+        <section class="py-20 px-4 md:px-6 border-y border-white/5 bg-[#050a07]">
             <div class="max-w-6xl mx-auto text-center">
-                <h2 class="font-display text-3xl font-bold mb-4 text-white" data-i18n="dash_title">관리자 대시보드</h2>
+                <h2 class="font-display text-2xl md:text-3xl font-bold mb-4 text-white" data-i18n="dash_title">관리자 대시보드</h2>
                 <p class="text-gray-400 mb-12" data-i18n="dash_sub">21개 관리 페이지 완벽 지원</p>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 text-xs font-bold text-gray-400">
                     <div class="stat-box p-4 rounded-xl hover:border-[#00ff9d] transition"><i class="fas fa-tachometer-alt text-green-400 mb-2 block text-2xl"></i>Dashboard</div>
@@ -312,10 +283,10 @@
             </div>
         </section>
 
-        <section class="py-24 px-6">
+        <section class="py-24 px-4 md:px-6">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="font-display text-3xl font-bold mb-4" data-i18n="price_title">LICENSE PLANS</h2>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold mb-4" data-i18n="price_title">LICENSE PLANS</h2>
                     <p class="text-gray-500" data-i18n="price_sub">비즈니스 규모에 맞는 최적의 플랜을 선택하세요.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -348,15 +319,15 @@
             </div>
         </section>
 
-        <section class="py-20 px-6 border-t border-white/10 bg-gradient-to-b from-black to-green-900/10">
+        <section class="py-20 px-4 md:px-6 border-t border-white/10 bg-gradient-to-b from-black to-green-900/10">
             <div class="max-w-4xl mx-auto text-center">
                 <div class="flex items-center justify-center gap-4 mb-6">
                     <span class="text-xl text-gray-400"><i class="fab fa-stripe"></i> Stripe Payment</span>
                     <span class="text-gray-600">|</span>
                     <span class="text-xl text-green-400"><i class="fas fa-lock"></i> 7-Day Free Trial</span>
                 </div>
-                <h3 class="font-display text-3xl font-bold mb-4" data-i18n="trial_title">7일 무료 체험 시작하기</h3>
-                <p class="text-gray-400 mb-8 max-w-xl mx-auto" data-i18n="trial_desc">BASIC 플랜의 모든 기능을 7일 동안 무료로 경험해보세요. 카드 등록 없이 즉시 시작할 수 있습니다.</p>
+                <h3 class="font-display text-2xl md:text-3xl font-bold mb-4" data-i18n="trial_title">7일 무료 체험 시작하기</h3>
+                <p class="text-gray-400 mb-8 max-w-xl mx-auto text-sm md:text-base" data-i18n="trial_desc">BASIC 플랜의 모든 기능을 7일 동안 무료로 경험해보세요. 카드 등록 없이 즉시 시작할 수 있습니다.</p>
                 <button class="px-8 py-4 bg-white text-black rounded-xl font-bold text-sm uppercase hover:bg-green-400 transition shadow-xl">
                     <span data-i18n="trial_btn">Start 7-Day Basic Trial</span>
                 </button>
@@ -365,37 +336,37 @@
     </main>
 
     <main id="tab-gov" class="tab-content pt-32">
-        <section class="px-6 text-center mb-24 max-w-6xl mx-auto">
+        <section class="px-4 md:px-6 text-center mb-24 max-w-6xl mx-auto">
             <div class="inline-block mb-8 px-4 py-1.5 border border-red-500/40 rounded text-red-500 text-[10px] font-bold tracking-[0.3em] uppercase">
                 Restricted Access: Government Only
             </div>
-            <h1 class="font-display text-6xl md:text-8xl font-black mb-8 leading-none text-white">
+            <h1 class="font-display text-4xl md:text-8xl font-black mb-8 leading-none text-white">
                 SENTINEL <span class="text-[#ff2a2a] text-glow-red">GOV</span>
             </h1>
-            <p class="text-gray-400 text-xl max-w-3xl mx-auto mb-8 leading-relaxed" data-i18n="gov_hero_sub"></p>
-            <p class="text-xl font-semibold text-white mb-20 font-display" data-i18n="gov_slogan"></p>
+            <p class="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed" data-i18n="gov_hero_sub"></p>
+            <p class="text-lg md:text-xl font-semibold text-white mb-20 font-display" data-i18n="gov_slogan"></p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left mb-20" id="gov-modules-grid"></div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                 <div class="stat-box border-red-500/10 text-left">
-                    <h4 class="font-display text-xl text-red-400 mb-4" data-i18n="gov_sec5_title"></h4>
+                    <h4 class="font-display text-xl text-red-400 mb-4" data-i18n="gov_sec5_title">05. The Paradigm Shift</h4>
                     <p class="text-sm text-gray-400 leading-relaxed mb-4" data-i18n="gov_sec5_desc"></p>
                     <ul class="text-xs text-gray-500 space-y-2 text-left" id="gov-sec5-list"></ul>
                 </div>
                 <div class="stat-box border-red-500/10 text-left">
-                    <h4 class="font-display text-xl text-red-400 mb-4" data-i18n="gov_sec6_title"></h4>
+                    <h4 class="font-display text-xl text-red-400 mb-4" data-i18n="gov_sec6_title">06. 24/7 Autonomous Sentinel AI</h4>
                     <p class="text-sm text-gray-400 leading-relaxed mb-4" data-i18n="gov_sec6_desc"></p>
                     <ul class="text-xs text-gray-500 space-y-2 text-left" id="gov-sec6-list"></ul>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 px-6 bg-red-900/[0.05] border-t border-red-500/10">
-            <div class="max-w-3xl mx-auto text-center p-12 border border-red-500/30 rounded-3xl bg-gradient-to-b from-red-900/10 to-black">
+        <section class="py-24 px-4 md:px-6 bg-red-900/[0.05] border-t border-red-500/10">
+            <div class="max-w-3xl mx-auto text-center p-8 md:p-12 border border-red-500/30 rounded-3xl bg-gradient-to-b from-red-900/10 to-black">
                 <h3 class="font-display text-2xl font-bold mb-4 text-white uppercase">Authorization Required</h3>
                 <p class="text-gray-500 text-sm mb-8" data-i18n="gov_auth_text"></p>
-                <div class="flex justify-center gap-4">
+                <div class="flex flex-col md:flex-row justify-center gap-4">
                     <button class="px-8 py-3 bg-red-600 text-white font-bold rounded hover:bg-red-500 transition text-xs uppercase tracking-widest shadow-lg shadow-red-600/20" data-i18n="gov_btn_req">Request Access</button>
                     <button class="px-8 py-3 border border-red-500/30 text-red-500 font-bold rounded hover:bg-red-500/10 transition text-xs uppercase tracking-widest" data-i18n="gov_btn_doc">Download Docs</button>
                 </div>
@@ -418,12 +389,11 @@
                 stat_total: "총 수집 데이터", stat_active: "활성 채널", stat_daily: "일일 데이터",
                 process_title: "키워드 하나만 입력하면,<br>Sentinel AI가 모든 걸 찾아냅니다", 
                 process_desc: "더 이상 수동으로 채널을 찾고, 메시지를 복사하고, 엑셀에 정리할 필요 없습니다.",
-                process_sub: "Sentinel AI가 24시간 자동으로 모든 데이터를 수집하고 분석합니다.",
                 step1_t: "키워드 입력", step1_d: "\"나이키\", \"비트코인\" 등 관심 키워드 1개만 입력하세요.",
                 step2_t: "AI 자동 분석", step2_d: "500+ 연관 키워드 생성 및 관련 채널을 자동으로 발견합니다.",
                 step3_t: "실시간 수집", step3_d: "62개 이상의 플랫폼에서 24시간 수집하고 CSV/JSON으로 즉시 내보냅니다.",
                 
-                // Compare Section KO
+                // Compare Section KO (복구 완료)
                 comp_title_bad: "경쟁사는 데이터만 수집합니다", comp_title_good: "SENTINEL AI는 인간을 이해합니다",
                 comp_bad_1: "단순 텍스트만 수집 (무엇)", comp_bad_2: "\"무엇\"만 알려줌", comp_bad_3: "수동 분석 필요", comp_bad_4: "행동 예측 불가",
                 comp_good_1: "심리 분석: 타겟의 감정 상태 7단계 분석", comp_good_2: "행동 예측: 행동 패턴 기반으로 타겟 행동 시점 예측",
@@ -464,6 +434,14 @@
                     {t:"프랜차이즈", d:"창업 커뮤니티, 자영업자 카페의 '업종 변경', '폐업 고민'을 분석하여 예산과 관심 업종별 브랜드를 매칭합니다.", i:"fas fa-store", c:"emerald"},
                     {t:"뷰티/성형", d:"강남언니, 바비톡, SNS의 '부작용', '후기 요청', '견적 문의' 데이터를 수집하여 실시간 상담 예약을 지원합니다.", i:"fas fa-magic", c:"fuchsia"}
                 ],
+                techs: [
+                    {t:"다층 심리 프로파일링", d:"7단계 감정 분석 엔진이 타겟의 심리 상태를 실시간으로 정량화합니다. 단순 키워드 매칭을 넘어 문맥, 어조, 반응 속도까지 종합 분석합니다.", r:"결과: 리드 품질 83% 향상", c:"green"},
+                    {t:"행동 예측 엔진", d:"과거 행동 패턴 학습을 통해 타겟이 다음 행동을 취할 시점을 예측합니다. (예: 급여일 3일 전 소비 패턴 변화 감지)", r:"결과: 행동 시점 예측 정확도 78%", c:"blue"},
+                    {t:"크로스플랫폼 신원 매핑", d:"텔레그램, 카카오톡, 트위터 등 서로 다른 플랫폼의 계정을 92% 정확도로 동일인으로 매핑하여 통합 프로필을 생성합니다.", r:"결과: 타겟 프로필 완성도 3.2배", c:"purple"},
+                    {t:"지능형 키워드 확장", d:"단 1개의 키워드 입력으로 AI가 500개 이상의 연관 검색어(은어, 오타, 지역 방언 포함)를 자동 생성합니다.", r:"결과: 1개 입력으로 500+ 확장", c:"pink"},
+                    {t:"스텔스 크롤링", d:"수천 개의 IP와 디바이스 핑거프린트를 자동 순환하며 플랫폼 차단을 회피합니다. 구조 변경 시 AI가 로직을 자동 재구성합니다.", r:"결과: 99.7% 가동률", c:"orange"},
+                    {t:"실시간 의도 점수", d:"타겟의 모든 행동에 0-100점 의도 점수를 실시간으로 부여하여 구매 의도가 높은 사용자를 우선순위로 분류합니다.", r:"결과: 영업 효율 5.4배 증가", c:"cyan"}
+                ],
                 plans: {
                     basic: ["3개 핵심 플랫폼 감시", "일일 1,000건 데이터 수집", "키워드 3개 등록 가능", "표준 대시보드 제공"],
                     pro: ["9개 플랫폼 감시", "일일 10,000건 데이터 수집", "키워드 10개 등록 가능", "심화 분석 리포트"],
@@ -485,7 +463,6 @@
                 stat_total: "TOTAL COLLECTED", stat_active: "ACTIVE CHANNELS", stat_daily: "DAILY DATA",
                 process_title: "Just Enter One Keyword,<br>Sentinel AI Finds Everything",
                 process_desc: "No more manual channel searching, message copying, or Excel organizing.",
-                process_sub: "Sentinel AI automatically collects and analyzes all data 24/7.",
                 step1_t: "Enter Keyword", step1_d: "Just one core keyword like \"Nike\", \"Bitcoin\".",
                 step2_t: "AI Analysis", step2_d: "Generate 500+ keywords & auto-discover channels.",
                 step3_t: "Real-time Collection", step3_d: "24/7 collection from 62+ platforms & instant export.",
@@ -550,18 +527,16 @@
 
         function switchTab(id) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active', 'gov-active'));
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + id).classList.add('active');
-            const btn = document.getElementById('nav-' + id);
+            document.getElementById('nav-' + id).classList.add('active');
             
             if (id === 'gov') {
                 document.body.classList.add('theme-gov');
-                btn.classList.add('gov-active');
                 document.getElementById('btn-ko').style.borderColor = '#ff2a2a';
-                document.getElementById('btn-en').style.borderColor = '#333';
+                document.getElementById('btn-en').style.borderColor = 'rgba(255,255,255,0.1)';
             } else {
                 document.body.classList.remove('theme-gov');
-                btn.classList.add('active');
                 document.getElementById('btn-ko').style.borderColor = '#00ff9d';
             }
             window.scrollTo({top: 0, behavior: 'smooth'});
@@ -596,7 +571,7 @@
                 data.gov_sec6_list.forEach(item => govList6.innerHTML += `<li>• ${item}</li>`);
             }
 
-            // Techs Grid
+            // Tech Grid
             const techGrid = document.getElementById('tech-grid');
             if (techGrid && data.techs) {
                 techGrid.innerHTML = '';
