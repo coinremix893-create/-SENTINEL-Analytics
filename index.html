@@ -155,15 +155,15 @@
             <div class="flex items-center gap-2 md:gap-4">
                 <!-- 데스크톱: 버튼 -->
                 <div class="lang-buttons bg-black border border-white/10 rounded p-0.5">
-                    <button onclick="setLang('ko')" id="btn-ko" class="px-2 py-1 text-[10px] font-bold rounded text-gray-500 active-lang transition">KO</button>
-                    <button onclick="setLang('en')" id="btn-en" class="px-2 py-1 text-[10px] font-bold rounded text-gray-500 transition hover:text-white">EN</button>
+                    <button onclick="setLang('ko')" id="btn-ko" class="px-2 py-1 text-[10px] font-bold rounded text-gray-500 transition">KO</button>
+                    <button onclick="setLang('en')" id="btn-en" class="px-2 py-1 text-[10px] font-bold rounded text-gray-500 active-lang transition hover:text-white">EN</button>
                 </div>
                 
                 <!-- 모바일: 드롭다운 -->
                 <div class="lang-dropdown">
                     <select onchange="setLang(this.value)" id="lang-select">
                         <option value="ko">KO</option>
-                        <option value="en">EN</option>
+                        <option value="en" selected>EN</option>
                     </select>
                 </div>
                 <button onclick="window.open('https://t.me/sentinel_support')" class="contact-btn">CONTACT</button>
@@ -494,11 +494,11 @@
 
             en: {
                 contact: "Contact",
-                hero_sub: "SENTINEL AI-powered Next-Gen Intelligence Platform. Real-time 62-platform analysis and psychological quantification.",
+                hero_sub: "SENTINEL AI-powered next-generation intelligence platform. Real-time analysis across 62 platforms, psychological scoring, and behavior pattern learning.",
                 hero_feat_1: "62 Platforms", hero_feat_2: "Psychology", hero_feat_3: "Prediction", hero_feat_4: "83% Cost Cut",
                 stat_total: "TOTAL COLLECTED", stat_active: "ACTIVE CHANNELS", stat_daily: "DAILY DATA",
                 process_title: "Just Enter One Keyword,<br>Sentinel AI Finds Everything",
-                process_desc: "No more manual channel searching, message copying, or Excel organizing.",
+                process_desc: "No more manually searching channels, copying messages, or organizing everything in Excel.",
                 step1_t: "Enter Keyword", step1_d: "Just one core keyword like \"Nike\", \"Bitcoin\".",
                 step2_t: "AI Analysis", step2_d: "Generate 500+ keywords & auto-discover channels.",
                 step3_t: "Real-time Collection", step3_d: "24/7 collection from 62+ platforms & instant export.",
@@ -513,25 +513,25 @@
 
                 old_title: "No More", old_1: "Manual channel search", old_2: "Copy-paste messages", old_3: "VPN switching", old_4: "24/7 monitoring staff",
                 new_title: "AI Does It", new_1: "Auto-discover 62 platforms", new_2: "24/7 auto collection", new_3: "Auto user classification", new_4: "Auto export CSV/JSON",
-                tech_title: "Proprietary AI Engine", tech_sub: "Auto-expansion, context analysis, behavior learning",
-                cases_title: "10 Key Industry Use Cases", cases_sub: "Automated from target discovery to big data collection", 
-                dash_title: "Admin Dashboard", dash_sub: "21 Admin Pages Fully Supported",
+                tech_title: "Sentinel AI Proprietary Engine", tech_sub: "In-house AI engine for automatic keyword expansion, context analysis, and behavior pattern learning.",
+                cases_title: "10 Core Industry Use Cases", cases_sub: "Fully automated from target discovery to large-scale data collection", 
+                dash_title: "Admin Dashboard", dash_sub: "21 admin pages fully supported",
                 price_title: "LICENSE PLANS", price_sub: "Choose the optimal plan for your business scale",
                 plan_btn_start: "Start Now", plan_btn_up: "Upgrade", plan_btn_full: "Full Access", plan_btn_contact: "Contact Sales",
                 trial_title: "Start 7-Day Free Trial", trial_desc: "Experience all BASIC plan features for free for 7 days. No credit card required.", trial_btn: "Request Free Trial",
                 
                 // GOV Section EN
-                gov_hero_sub: "National Intelligence Control Platform. Securing public safety via crime prediction & disaster response.",
+                gov_hero_sub: "National intelligent command platform for crime prevention and securing the disaster-response golden time.",
                 gov_slogan: "\"Empowering Modern Governance through Predictive Intelligence\"",
                 gov_auth_text: "This module is exclusively for approved government and judicial institutions.<br>Closed licenses issued after official request.",
                 gov_btn_req: "Request Access", gov_btn_doc: "Download Specs",
                 
-                gov_sec5_title: "05. The Paradigm Shift: From Recovery to Prevention",
-                gov_sec5_desc: "Stop the Crisis Before It Starts. SENTINEL GOV operates on the principle of 'Pre-emptive Governance', identifying risks at their incubation stage.",
+                gov_sec5_title: "05. Paradigm Shift: From Recovery to Prevention",
+                gov_sec5_desc: "Shift from post-crisis recovery to pre-crisis prevention. SENTINEL GOV follows a principle of pre-emptive governance, detecting risks at their earliest stage to minimize national loss.",
                 gov_sec5_list: ["Pre-emptive Crime Suppression", "Predictive Disaster Defense", "Social Harmony Stabilization"],
 
                 gov_sec6_title: "06. 24/7 Autonomous Sentinel AI",
-                gov_sec6_desc: "Constant Vigilance Without Human Fatigue. Scans millions of data points across encrypted messengers, social media, and the Deep Web to present only the 'Absolute Truth'.",
+                gov_sec6_desc: "Maintains continuous vigilance without human fatigue. Scans millions of data points across encrypted messengers, social media, and the deep web 24/7 to surface only the most reliable signals.",
                 gov_sec6_list: ["Autonomous Monitoring", "Behavioral Forecasting", "Executive Intelligence Briefs"],
 
                 cases: [
@@ -678,7 +678,7 @@
             }
         }, 1500);
 
-        window.onload = () => setLang('ko');
+        window.onload = () => setLang('en');
     </script>
 </body>
 </html>
